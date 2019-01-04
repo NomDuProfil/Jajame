@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<enigmes>
+	<enigme id="initmessage">
+		<scenario>Enfin quelqu'un de connecté !\nJe suis Sally et je suis coincée ici depuis des jours et je ne sais pas comment sortir.</scenario>
+		<intituleEnigme>Je dois rentrer un code à 4 chiffres. Je vois seulement 1406 au dessus. Et ce dessin : ;obj1;</intituleEnigme>
+		<objets>
+			<objet>oui.txt</objet>
+			<objet>non.txt</objet>
+		</objets>
+		<reponseEnigme>1789</reponseEnigme>
+	</enigme>
+	<enigme id="deuxieme">
+		<scenario>Cool</scenario>
+		<intituleEnigme>Je dois rentrer un code à 4 chiffres. Je vois seulement 1406 au dessus.</intituleEnigme>
+		<objets>
+			<objet>oui.txt</objet>
+		</objets>
+		<reponseEnigme>1789</reponseEnigme>
+	</enigme>
+</enigmes>
