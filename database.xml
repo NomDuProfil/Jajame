@@ -4,14 +4,14 @@
 		<scenario>Enfin quelqu'un de connecté !\nJe suis Sally et je suis coincée ici depuis des jours et je ne sais pas comment sortir.</scenario>
 		<intituleEnigme>\nJe dois rentrer un code à 4 chiffres. Je vois seulement 1406 au dessus. Et ce dessin :\n;IMmG1;</intituleEnigme>
 		<objets>
-			<TXxT1>files/oui.txt</TXxT1>
-			<IMmG1>files/goat.jpg</IMmG1>
+			<TXxT1>./files/oui.txt</TXxT1>
+			<IMmG1>./files/img/</IMmG1>
 		</objets>
 		<reponseEnigme>1789</reponseEnigme>
 	</enigme>
 	<enigme id="deuxieme">
 		<scenario>Cool</scenario>
-		<intituleEnigme>Je dois rentrer un code à 4 chiffres. Je vois seulement 1406 au dessus.</intituleEnigme>
+		<intituleEnigme>Je dois rentrer un code ;sLeEp;à 4 chiffres. Je vois seulement 1406 au dessus.</intituleEnigme>
 		<objets>
 			<objet>files/oui.txt</objet>
 		</objets>

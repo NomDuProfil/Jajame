@@ -18,7 +18,6 @@
 				$return["scenario"] = strval($enigme->scenario[0]);
 				$return["intituleEnigme"] = strval($enigme->intituleEnigme[0]);
 				if ($enigme->objets != null) {
-					//$countobj = 1;
 					$intutulFinal = "";
 					$intitulTmp = explode(";", strval($enigme->intituleEnigme[0]));
 					foreach ($intitulTmp as $key) {
@@ -26,7 +25,17 @@
 							$intutulFinal = $intutulFinal . file_get_contents($enigme->objets->$key);
 						}
 						else if (strpos($key, "IMmG") !== false) {
-							$intutulFinal = $intutulFinal . "<html><img src=\"".$enigme->objets->$key."\"><html>";
+							for ($x = 1; $x < 16; $x++) {
+								if ($x < 10) {
+									$intutulFinal = $intutulFinal . "<html><img width=\"500px\" src=\"".$enigme->objets->$key."image_part_00".$x.".png\"><html>";
+								}
+								else {
+									$intutulFinal = $intutulFinal . "<html><img width=\"500px\" src=\"".$enigme->objets->$key."image_part_0".$x.".png\"><html>";
+								}
+							}
+						}
+						else if (strpos($key, "sLeEp") !== false) {
+							$intutulFinal = $intutulFinal . "<sleep>";
 						}
 						else {
 							$intutulFinal = $intutulFinal . $key;

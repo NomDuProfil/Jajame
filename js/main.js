@@ -1,8 +1,5 @@
 "use strict";
 
-/**
- * Configs*/
- 
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
@@ -12,40 +9,6 @@ var configs = (function () {
         }
     };
     Singleton.defaultOptions = {
-        general_help: "Below there's a list of commands that you can use.\nYou can use autofill by pressing the TAB key, autocompleting if there's only 1 possibility, or showing you a list of possibilities.",
-        ls_help: "List information about the files and folders (the current directory by default).",
-        cat_help: "Read FILE(s) content and print it to the standard output (screen).",
-        whoami_help: "Print the user name associated with the current effective user ID and more info.",
-        date_help: "Print the system date and time.",
-        help_help: "Print this menu.",
-        clear_help: "Clear the terminal screen.",
-        reboot_help: "Reboot the system.",
-        cd_help: "Change the current working directory.",
-        mv_help: "Move (rename) files.",
-        rm_help: "Remove files or directories.",
-        rmdir_help: "Remove directory, this command will only work if the folders are empty.",
-        touch_help: "Change file timestamps. If the file doesn't exist, it's created an empty one.",
-        sudo_help: "Execute a command as the superuser.",
-        //welcome: "Welcome to FTW (Fake Terminal Website)! :)\nIn order for you to start customizing the texts, go to js/main.js and replace the texts located at the configs var.\nIn that same file, you can define all the fake files you want as well as their content. This files will appear on the sidenav.\nAlso, don't forget to change the colors on the css/main.css file as well as the website title on the index.html file.\nNow in order to get started, feel free to either execute the 'help' command or use the more user-friendly colored sidenav at your left.\nIn order to skip text rolling, double click/touch anywhere.",
-        welcome: "",
-        internet_explorer_warning: "NOTE: I see you're using internet explorer, this website won't work properly.",
-        welcome_file_name: "welcome_message.txt",
-        invalid_command_message: "<value>: command not found.",
-        reboot_message: "Preparing to reboot...\n\n3...\n\n2...\n\n1...\n\nRebooting...\n\n",
-        permission_denied_message: "Unable to '<value>', permission denied.",
-        sudo_message: "Unable to sudo using a web client.",
-        usage: "Usage",
-        file: "file",
-        file_not_found: "File '<value>' not found.",
-        username: "Username",
-        hostname: "Host",
-        platform: "Platform",
-        accesible_cores: "Accessible cores",
-        language: "Language",
-        value_token: "<value>",
-        host: "example.com",
-        user: "guest",
-        is_root: false,
         type_delay: 5
     };
     return {
@@ -73,10 +36,6 @@ var main = (function () {
       }
       return "";
     }
-
-    /**
-     * Aux functions
-     */
     var isUsingIE = window.navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./);
 
     var ignoreEvent = function (event) {
@@ -92,19 +51,15 @@ var main = (function () {
         return (str.startsWith("http") || str.startsWith("www")) && str.indexOf(" ") === -1 && str.indexOf("\n") === -1;
     };
     
-    /**
-     * Model
-     */
     var InvalidArgumentException = function (message) {
         this.message = message;
-        // Use V8's native method if available, otherwise fallback
         if ("captureStackTrace" in Error) {
             Error.captureStackTrace(this, InvalidArgumentException);
         } else {
             this.stack = (new Error()).stack;
         }
     };
-    // Extends Error
+
     InvalidArgumentException.prototype = Object.create(Error.prototype);
     InvalidArgumentException.prototype.name = "InvalidArgumentException";
     InvalidArgumentException.prototype.constructor = InvalidArgumentException;
@@ -258,7 +213,7 @@ var main = (function () {
         var timer = this.timer;
         var skipped = false;
         var isNewLineDataBase = false;
-        var isNewLine = false;
+        var isSleep = false;
         var skip = function () {
             skipped = true;
         }.bind(this);
@@ -266,15 +221,16 @@ var main = (function () {
         (function typer() {
             if (i < text.length) {
                 var char = text.charAt(i);
-                isNewLine = false;
+                isSleep = false;
                 if (((char == '\\') && (text.charAt(i+1) == 'n'))) {
                     isNewLineDataBase = true;
-                    isNewLine = true;
+                    isSleep = true;
                     output.innerHTML += "<br/>";
                     i++;
                 }
                 else if (char == '\n') {
-                    isNewLine = char === "\n";
+                    isSleep = char === "\n";
+                    isSleep = true;
                     output.innerHTML += "<br/>";
                 }
                 else if (char == " ") {
@@ -282,16 +238,25 @@ var main = (function () {
                 }
                 else if (((char == '<') && (text.charAt(i+1) == 'h')) && (text.charAt(i+2) == 't') && (text.charAt(i+3) == 'm') && (text.charAt(i+4) == 'l') && (text.charAt(i+5) == '>')) {
                     htmlcount++;
+                    if (htmlcount > 1) {
+                        htmlcount++;
+                    }
                     var cut_txt = text.split('<html>');
-                    output.innerHTML += cut_txt[htmlcount];
-                    i = i+cut_txt[htmlcount].length+("<html>".length*2);
+                    output.innerHTML += cut_txt[htmlcount]+"<br/>";
+                    i = i+cut_txt[htmlcount].length+("html>".length+"<html>".length);
+                    isSleep = true;
+                }
+                else if (((char == '<') && (text.charAt(i+1) == 's')) && (text.charAt(i+2) == 'l') && (text.charAt(i+3) == 'e') && (text.charAt(i+4) == 'e') && (text.charAt(i+5) == 'p') && (text.charAt(i+6) == '>')) {
+                    isSleep = true;
+                    i = i+"sleep>".length;
                 }
                 else {
                     output.innerHTML += char;
                 }
                 i++;
                 if (!skipped) {
-                    setTimeout(typer, isNewLine ? timer * 2 : timer);
+                    //setTimeout(typer, isNewLine ? timer * 50 : timer);
+                    setTimeout(typer, isSleep ? timer * 50 : timer);
                 } else {
                     output.innerHTML += (text.substring(i).replace(new RegExp("\n", 'g'), "<br/>").replace(new RegExp(" ", 'g'), "&nbsp;")) + "<br/>";
                     document.removeEventListener("dblclick", skip);
