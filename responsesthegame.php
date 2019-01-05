@@ -1,4 +1,30 @@
 <?php
+	function convertBalise($text, $point) {
+		$convertText = "";
+		$convertTmp = explode(";", strval($text));
+		foreach ($convertTmp as $key) {
+			if (strpos($key, "TXxT") !== false) {
+				$convertText = $convertText . file_get_contents($point->objets->$key);
+			}
+			else if (strpos($key, "IMmG") !== false) {
+				for ($x = 1; $x < 16; $x++) {
+					if ($x < 10) {
+						$convertText = $convertText . "<html><img width=\"500px\" src=\"".$point->objets->$key."image_part_00".$x.".png\"><html>";
+					}
+					else {
+						$convertText = $convertText . "<html><img width=\"500px\" src=\"".$point->objets->$key."image_part_0".$x.".png\"><html>";
+					}
+				}
+			}
+			else if (strpos($key, "sLeEp") !== false) {
+				$convertText = $convertText . "<sleep>";
+			}
+			else {
+				$convertText = $convertText . $key;
+			}
+		}
+		return $convertText;
+    }
 	$idenigmedata = $_POST['idEnigme'];
 	$flagPassword = false;
 	if (isset($_POST['response'])) {
@@ -15,37 +41,8 @@
 	foreach($xml->children() as $enigme) {
 		if ($enigme['id'] == $idenigmedata) {
 			if($flagPassword == true) {
-				$return["scenario"] = strval($enigme->scenario[0]);
-				$return["intituleEnigme"] = strval($enigme->intituleEnigme[0]);
-				if ($enigme->objets != null) {
-					$intutulFinal = "";
-					$intitulTmp = explode(";", strval($enigme->intituleEnigme[0]));
-					foreach ($intitulTmp as $key) {
-						if (strpos($key, "TXxT") !== false) {
-							$intutulFinal = $intutulFinal . file_get_contents($enigme->objets->$key);
-						}
-						else if (strpos($key, "IMmG") !== false) {
-							for ($x = 1; $x < 16; $x++) {
-								if ($x < 10) {
-									$intutulFinal = $intutulFinal . "<html><img width=\"500px\" src=\"".$enigme->objets->$key."image_part_00".$x.".png\"><html>";
-								}
-								else {
-									$intutulFinal = $intutulFinal . "<html><img width=\"500px\" src=\"".$enigme->objets->$key."image_part_0".$x.".png\"><html>";
-								}
-							}
-						}
-						else if (strpos($key, "sLeEp") !== false) {
-							$intutulFinal = $intutulFinal . "<sleep>";
-						}
-						else {
-							$intutulFinal = $intutulFinal . $key;
-						}
-					}
-					$return["intituleEnigme"] = $intutulFinal;
-				}
-				else {
-					$return["intituleEnigme"] = $intitulTmp;
-				}
+				$return["scenario"] = convertBalise($enigme->scenario[0], $enigme);
+				$return["intituleEnigme"] = convertBalise($enigme->intituleEnigme[0], $enigme);
 			}
 			else {
 				if (($count+1) > $xml->count()) {
