@@ -1,8 +1,8 @@
 "use strict";
 
 /**
- * Configs
- */
+ * Configs*/
+ 
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
@@ -221,7 +221,8 @@ var main = (function () {
                 console.log(data);
                 var obj = JSON.parse(data);
                 console.log(obj["scenario"]);
-                lethis.type(obj["scenario"], lethis.unlock.bind(lethis));
+                console.log(obj["intituleEnigme"]);
+                lethis.type(obj["scenario"]+"\n"+obj["intituleEnigme"], lethis.unlock.bind(lethis));
             });
         }
     };
@@ -265,15 +266,11 @@ var main = (function () {
             if (i < text.length) {
                 var char = text.charAt(i);
                 isNewLine = false;
-                if (isNewLineDataBase == true) {
-                    isNewLineDataBase = false;
-                    i+=1;
-                    callback();
-                }
                 if (((char == '\\') && (text.charAt(i+1) == 'n'))) {
                     isNewLineDataBase = true;
                     isNewLine = true;
                     output.innerHTML += "<br/>";
+                    i++;
                 }
                 else if (char == '\n') {
                     isNewLine = char === "\n";
