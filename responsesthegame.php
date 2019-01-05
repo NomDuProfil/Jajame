@@ -22,20 +22,15 @@
 					$intutulFinal = "";
 					$intitulTmp = explode(";", strval($enigme->intituleEnigme[0]));
 					foreach ($intitulTmp as $key) {
-						//LOOP SUR LES OBJETS
-						//GET LE TYPE LE L OBJET
-						//GET CONTENT OBJET
-						if (strpos($key, "TXxT") !== false ) {
+						if (strpos($key, "TXxT") !== false) {
 							$intutulFinal = $intutulFinal . file_get_contents($enigme->objets->$key);
+						}
+						else if (strpos($key, "IMmG") !== false) {
+							$intutulFinal = $intutulFinal . "<html><img src=\"".$enigme->objets->$key."\"><html>";
 						}
 						else {
 							$intutulFinal = $intutulFinal . $key;
 						}
-						/*$extension=explode(".",$key[0]);
-						if ($extension[1] == "txt") {
-							$return["belobj" . strval($countobj)] = file_get_contents($key[0]);
-						}
-						$countobj += 1;*/
 					}
 					$return["intituleEnigme"] = $intutulFinal;
 				}

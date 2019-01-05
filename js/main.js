@@ -139,7 +139,7 @@ var main = (function () {
 
     Terminal.prototype.init = function () {
         this.cmdLine.disabled = true;
-        document.body.addEventListener("click", function (event) {
+        document.body.addEventListener("dblclick", function (event) {
             this.focus();
         }.bind(this));
         this.cmdLine.addEventListener("keydown", function (event) {
@@ -253,6 +253,7 @@ var main = (function () {
             window.open(text);
         }
         var i = 0;
+        var htmlcount = 0;
         var output = this.output;
         var timer = this.timer;
         var skipped = false;
@@ -278,6 +279,12 @@ var main = (function () {
                 }
                 else if (char == " ") {
                     output.innerHTML += "&nbsp;";
+                }
+                else if (((char == '<') && (text.charAt(i+1) == 'h')) && (text.charAt(i+2) == 't') && (text.charAt(i+3) == 'm') && (text.charAt(i+4) == 'l') && (text.charAt(i+5) == '>')) {
+                    htmlcount++;
+                    var cut_txt = text.split('<html>');
+                    output.innerHTML += cut_txt[htmlcount];
+                    i = i+cut_txt[htmlcount].length+("<html>".length*2);
                 }
                 else {
                     output.innerHTML += char;
