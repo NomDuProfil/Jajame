@@ -154,8 +154,11 @@ var main = (function () {
             var obj = JSON.parse(data);
             if (obj["goodOrNot"] != "error") {
                 document.cookie = "idEnigme="+obj["goodOrNot"]+";";
+                lethis.type(obj["scenario"]+"\n"+obj["intituleEnigme"], lethis.unlock.bind(lethis));
             }
-            lethis.type(obj["scenario"], lethis.unlock.bind(lethis));
+            else {
+                lethis.type(obj["scenario"], lethis.unlock.bind(lethis));
+            }
         });
     };
 
@@ -177,7 +180,13 @@ var main = (function () {
                 var obj = JSON.parse(data);
                 console.log(obj["scenario"]);
                 console.log(obj["intituleEnigme"]);
-                lethis.type(obj["scenario"]+"\n"+obj["intituleEnigme"], lethis.unlock.bind(lethis));
+                if (obj["goodOrNot"] != "error") {
+                    document.cookie = "idEnigme="+obj["goodOrNot"]+";";
+                    lethis.type(obj["scenario"]+"\n"+obj["intituleEnigme"], lethis.unlock.bind(lethis));
+                }
+                else {
+                    lethis.type(obj["scenario"]+"\n"+obj["intituleEnigme"], lethis.unlock.bind(lethis));
+                }
             });
         }
     };

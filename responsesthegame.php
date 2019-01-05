@@ -43,22 +43,38 @@
 			if($flagPassword == true) {
 				$return["scenario"] = convertBalise($enigme->scenario[0], $enigme);
 				$return["intituleEnigme"] = convertBalise($enigme->intituleEnigme[0], $enigme);
+				$return["goodOrNot"] = "error";
 			}
 			else {
-				if (($count+1) > $xml->count()) {
-						$return["scenario"] = "Je me repose pour le moment...";
-						$return["goodOrNot"] = "error";
-				}
-				else {
-					if(strval($enigme->reponseEnigme[0]) == $responsedata) {
-						$return["scenario"] = strval($xml->children()[$key+1]->scenario[0]);
-						$return["goodOrNot"] = strval($xml->children()[$key+1]['id']);
+				if(strval($enigme->reponseEnigme[0]) == $responsedata) {
+					if (($count+1) > $xml->count()) {
+						$return["scenario"] = "Ça semble être ça!\nJe dois me reposer maintenant. Je te recontacte bientôt...";
+						$return["intituleEnigme"] = "";
+						$return["goodOrNot"] = "+".$enigme['id'];
 					}
 					else {
-						$return["scenario"] = "Non je ne crois pas que ce soit ça...";
-						$return["goodOrNot"] = "error";
+						$return["scenario"] = convertBalise($xml->children()[$key+1]->scenario[0], $xml->children()[$key+1]);
+						$return["intituleEnigme"] = convertBalise($xml->children()[$key+1]->intituleEnigme[0], $xml->children()[$key+1]);
+						$return["goodOrNot"] = strval($xml->children()[$key+1]['id']);
 					}
 				}
+				else {
+					$return["scenario"] = "Non je ne crois pas que ce soit ça...";
+					$return["goodOrNot"] = "error";
+				}
+			}
+			echo json_encode($return);
+		}
+		else if ("+".$enigme['id'] == $idenigmedata) {
+			if (($count+1) > $xml->count()) {
+				$return["scenario"] = "Je dois me reposer maintenant. Je te recontacte bientôt...";
+				$return["intituleEnigme"] = "";
+				$return["goodOrNot"] = "error";
+			}
+			else {
+				$return["scenario"] = convertBalise($xml->children()[$key+2]->scenario[0], $xml->children()[$key+2]);
+				$return["intituleEnigme"] = convertBalise($xml->children()[$key+2]->intituleEnigme[0], $xml->children()[$key+2]);
+				$return["goodOrNot"] = strval($xml->children()[$key+2]['id']);
 			}
 			echo json_encode($return);
 		}
