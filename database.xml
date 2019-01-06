@@ -1,19 +1,33 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <enigmes>
 	<enigme id="initmessage">
-		<scenario>Enfin quelqu'un de connecté !\nJe suis Sally et je suis coincée ici depuis des jours et je ne sais pas comment sortir.</scenario>
-		<intituleEnigme>\nJe dois rentrer un code à 4 chiffres. Je vois seulement 1406 au dessus. Et ce dessin :\n;IMmG1;</intituleEnigme>
+		<scenario>
+			;TXxT1;\nConnexion en cours.;sLeEp;.;sLeEp;.;sLeEp;.;sLeEp;\nConnecté!\nUtilisateur connecté: 1\n\n
+			Enfin quelqu'un de connecté ! Je suis Sally tu dois m'aider à sortir. Je suis dans une pièce avec une porte et cet ordinateur.
+			Je vais te donner le plus d'information possible pour pouvoir sortir d'ici. Voilà ce que je vois :</scenario>
+		<intituleEnigme>
+			Il y a un digicode à côté de la porte. On dirait que je dois rentrer 4 chiffres. Au dessus du clavier du digicode je vois des chiffres légèrement effacé :	14 / 06 / _ _ _ _
+			Je pense que les derniers chiffres sont la code mais je ne trouve pas...
+			Tu as une idée ?
+		</intituleEnigme>
 		<objets>
-			<TXxT1>./files/oui.txt</TXxT1>
-			<IMmG1>./files/img/</IMmG1>
+			<TXxT1>./files/strangechat.txt</TXxT1>
 		</objets>
 		<reponseEnigme>1789</reponseEnigme>
 	</enigme>
 	<enigme id="deuxieme">
 		<scenario>Cool</scenario>
-		<intituleEnigme>Je dois rentrer un code ;sLeEp;à 4 chiffres. Je vois seulement 1406 au dessus.</intituleEnigme>
+		<intituleEnigme>Je dois rentrer un code ;sLeEp;à 4 chiffres. Je vois seulement 1406 au dessus.\n;TXxT1;</intituleEnigme>
 		<objets>
-			<objet>files/oui.txt</objet>
+			<TXxT1>./files/oui.txt</TXxT1>
+		</objets>
+		<reponseEnigme>1789</reponseEnigme>
+	</enigme>
+	<enigme id="troisieme">
+		<scenario>Benvoila</scenario>
+		<intituleEnigme>Ah ;sLeEp;à 4 chiffres.</intituleEnigme>
+		<objets>
+			<TXxT1>./files/non.txt</TXxT1>
 		</objets>
 		<reponseEnigme>1789</reponseEnigme>
 	</enigme>

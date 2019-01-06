@@ -9,7 +9,7 @@ var configs = (function () {
         }
     };
     Singleton.defaultOptions = {
-        type_delay: 5
+        type_delay: 10
     };
     return {
         getInstance: function (options) {
@@ -223,23 +223,23 @@ var main = (function () {
         var skipped = false;
         var isNewLineDataBase = false;
         var isSleep = false;
-        var skip = function () {
+        /*var skip = function () {
             skipped = true;
         }.bind(this);
-        document.addEventListener("dblclick", skip);
+        document.addEventListener("dblclick", skip);*/
         (function typer() {
             if (i < text.length) {
                 var char = text.charAt(i);
                 isSleep = false;
                 if (((char == '\\') && (text.charAt(i+1) == 'n'))) {
                     isNewLineDataBase = true;
-                    isSleep = true;
+                    //isSleep = true;
                     output.innerHTML += "<br/>";
                     i++;
                 }
                 else if (char == '\n') {
                     isSleep = char === "\n";
-                    isSleep = true;
+                    //isSleep = true;
                     output.innerHTML += "<br/>";
                 }
                 else if (char == " ") {
@@ -263,17 +263,16 @@ var main = (function () {
                     output.innerHTML += char;
                 }
                 i++;
-                if (!skipped) {
-                    //setTimeout(typer, isNewLine ? timer * 50 : timer);
+                //if (!skipped) {
                     setTimeout(typer, isSleep ? timer * 50 : timer);
-                } else {
+                /*} else {
                     output.innerHTML += (text.substring(i).replace(new RegExp("\n", 'g'), "<br/>").replace(new RegExp(" ", 'g'), "&nbsp;")) + "<br/>";
                     document.removeEventListener("dblclick", skip);
                     callback();
-                }
+                }*/
             } else if (callback) {
                 output.innerHTML += "<br/>";
-                document.removeEventListener("dblclick", skip);
+                //document.removeEventListener("dblclick", skip);
                 callback();
             }
             scrollToBottom();
