@@ -1,34 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <enigmes>
 	<enigme id="initmessage">
-		<scenario>
-			;TXxT1;\nConnexion en cours.;sLeEp;.;sLeEp;.;sLeEp;.;sLeEp;\nConnecté!\nUtilisateur connecté: 1\n\n
-			Enfin quelqu'un de connecté ! Je suis Sally tu dois m'aider à sortir. Je suis dans une pièce avec une porte et cet ordinateur.
-			Je vais te donner le plus d'information possible pour pouvoir sortir d'ici. Voilà ce que je vois :</scenario>
+		<scenario>;TXxT1;\nConnexion en cours.;sLeEp;.;sLeEp;.;sLeEp;.;sLeEp;\nConnecté!\nUtilisateur connecté: 1\n\n
+			Enfin quelqu'un de connecté ! Je suis Sally tu dois m'aider à sortir. Je suis dans une pièce avec une porte et cette tablette avec laquelle je peux communiquer.
+			Je vais te donner le plus d'information possible pour pouvoir sortir d'ici.</scenario>
 		<intituleEnigme>
-			Il y a un digicode à côté de la porte. On dirait que je dois rentrer 4 chiffres. Au dessus du clavier du digicode je vois des chiffres légèrement effacé :	14 / 06 / _ _ _ _
-			Je pense que les derniers chiffres sont la code mais je ne trouve pas...
-			Tu as une idée ?
-		</intituleEnigme>
+			Il y a un digicode à côté de la porte. On dirait que je dois rentrer 4 chiffres. Au dessus du clavier du digicode je vois des chiffres légèrement effacé :	14 / 07 / _ _ _ _
+			Je pense que les derniers chiffres sont le code mais je ne trouve pas...
+			Tu as une idée ?</intituleEnigme>
 		<objets>
 			<TXxT1>./files/strangechat.txt</TXxT1>
 		</objets>
 		<reponseEnigme>1789</reponseEnigme>
 	</enigme>
-	<enigme id="deuxieme">
-		<scenario>Cool</scenario>
-		<intituleEnigme>Je dois rentrer un code ;sLeEp;à 4 chiffres. Je vois seulement 1406 au dessus.\n;TXxT1;</intituleEnigme>
-		<objets>
-			<TXxT1>./files/oui.txt</TXxT1>
-		</objets>
-		<reponseEnigme>1789</reponseEnigme>
+	<enigme id="cestledebutdelaventure">
+		<scenario>Super on dirait que ça fonctionne ! Je suis dans une nouvelle salle. La porte semble vérouillée avec un mot de passe.</scenario>
+		<intituleEnigme>
+			La seule chose que je vois est une feuille avec écrit :\n
+			.-.. .- -... -.-- .-. .. -. - .... .
+		</intituleEnigme>
+		<reponseEnigme>LABYRINTHE</reponseEnigme>
 	</enigme>
-	<enigme id="troisieme">
-		<scenario>Benvoila</scenario>
-		<intituleEnigme>Ah ;sLeEp;à 4 chiffres.</intituleEnigme>
+	<enigme id="lebeaumorse">
+		<scenario>Du morse, j'aurais du m'en douter. Bien joué ! Cette pièce est vraiment très sombre je n'y vois rien... Je vais essayer de prendre une photo.</scenario>
+		<intituleEnigme>Envoi en cours.;sLeEp;.;sLeEp;.;sLeEp;.;sLeEp;.\n;IMmG1;</intituleEnigme>
 		<objets>
-			<TXxT1>./files/non.txt</TXxT1>
+			<IMmG1>./files/point/</IMmG1>
 		</objets>
-		<reponseEnigme>1789</reponseEnigme>
+		<reponseEnigme>escape</reponseEnigme>
 	</enigme>
 </enigmes>
