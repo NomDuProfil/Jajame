@@ -9,10 +9,10 @@
 			else if (strpos($key, "IMmG") !== false) {
 				for ($x = 1; $x < 16; $x++) {
 					if ($x < 10) {
-						$convertText = $convertText . "<html><img width=\"500px\" src=\"".$point->objets->$key."image_part_00".$x.".png\"><html>";
+						$convertText = $convertText . "<html><a href=\"".$point->objets->$key. "image.png\" target=\"_blank\"><img width=\"500px\" src=\"".$point->objets->$key."image_part_00".$x.".png\"></a><html>";
 					}
 					else {
-						$convertText = $convertText . "<html><img width=\"500px\" src=\"".$point->objets->$key."image_part_0".$x.".png\"><html>";
+						$convertText = $convertText . "<html><a href=\"".$point->objets->$key. "image.png\" target=\"_blank\"><img width=\"500px\" src=\"".$point->objets->$key."image_part_0".$x.".png\"></a><html>";
 					}
 				}
 			}
@@ -36,7 +36,7 @@
 
 	$xml=simplexml_load_file("database.xml") or die("Error: Cannot create object");
 
-	$count = 1;
+	$count = 0;
 
 	foreach($xml->children() as $enigme) {
 		if ($enigme['id'] == $idenigmedata) {
@@ -46,16 +46,16 @@
 				$return["goodOrNot"] = "error";
 			}
 			else {
-				if(strval($enigme->reponseEnigme[0]) == $responsedata) {
-					if (($count+1) > $xml->count()) {
+				if(strtolower(strval($enigme->reponseEnigme[0])) == strtolower($responsedata)) {
+					if (($count+2) > $xml->count()) {
 						$return["scenario"] = "Ça semble être ça!\nJe dois me reposer maintenant. Je te recontacte bientôt...";
 						$return["intituleEnigme"] = "";
 						$return["goodOrNot"] = "+".$enigme['id'];
 					}
-					else {
-						$return["scenario"] = convertBalise($xml->children()[$key+1]->scenario[0], $xml->children()[$key+1]);
-						$return["intituleEnigme"] = convertBalise($xml->children()[$key+1]->intituleEnigme[0], $xml->children()[$key+1]);
-						$return["goodOrNot"] = strval($xml->children()[$key+1]['id']);
+					else {		
+						$return["scenario"] = convertBalise($xml->children()[$count+1]->scenario[0], $xml->children()[$count+1]);
+						$return["intituleEnigme"] = convertBalise($xml->children()[$count+1]->intituleEnigme[0], $xml->children()[$count+1]);
+						$return["goodOrNot"] = strval($xml->children()[$count+1]['id']);
 					}
 				}
 				else {
@@ -66,15 +66,15 @@
 			echo json_encode($return);
 		}
 		else if ("+".$enigme['id'] == $idenigmedata) {
-			if (($count+1) > $xml->count()) {
+			if (($count+2) > $xml->count()) {
 				$return["scenario"] = "Je dois me reposer maintenant. Je te recontacte bientôt...";
 				$return["intituleEnigme"] = "";
 				$return["goodOrNot"] = "error";
 			}
 			else {
-				$return["scenario"] = convertBalise($xml->children()[$key+2]->scenario[0], $xml->children()[$key+2]);
-				$return["intituleEnigme"] = convertBalise($xml->children()[$key+2]->intituleEnigme[0], $xml->children()[$key+2]);
-				$return["goodOrNot"] = strval($xml->children()[$key+2]['id']);
+				$return["scenario"] = convertBalise($xml->children()[$count+1]->scenario[0], $xml->children()[$count+1]);
+				$return["intituleEnigme"] = convertBalise($xml->children()[$count+1]->intituleEnigme[0], $xml->children()[$count+1]);
+				$return["goodOrNot"] = strval($xml->children()[$count+1]['id']);
 			}
 			echo json_encode($return);
 		}
